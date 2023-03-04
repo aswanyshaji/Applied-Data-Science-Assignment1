@@ -6,19 +6,14 @@ Created on Fri Mar  3 17:53:39 2023
 """
 import pandas as pd
 import matplotlib.pyplot as plt
-
-  
-
-df1 = pd.read_csv('energy-pop-exposure-nuclear-plants-locations_plants.csv')
-df2 = df1.groupby(['Region'], as_index=False,).sum()
+Reactor_df = pd.read_csv('nuclear_reactor.csv')
+NumReactor_Region = Reactor_df.groupby(['Region'], as_index=False,).sum()
 plt.figure(figsize = (12,12))
-plt.pie(df2["NumReactor"],autopct='%1.1f%%')
-##plt.legend ( df2 [ "Region" ], loc = 'upper left' )
+plt.pie(NumReactor_Region["NumReactor"],autopct='%1.1f%%')
+plt.legend ( NumReactor_Region [ "Region" ], loc = 'upper left' )
 
-
-
-ReactorCount = pd.read_csv('energy-pop-exposure-nuclear-plants-locations_plants.csv')
-NumReactor_Country = ReactorCount.groupby(['Country'], as_index = False,).sum()
+Reactor_df = pd.read_csv('nuclear_reactor.csv')
+NumReactor_Country = Reactor_df.groupby(['Country'], as_index = False,).sum()
 TopTen = NumReactor_Country.sort_values(by = "NumReactor", ascending = False).head(15)
 plt.figure()
 plt.bar(TopTen["Country"], TopTen["NumReactor"], color=['b','g','y','r'])
@@ -29,24 +24,19 @@ for i in TopTen.itertuples():
 plt.show()
 
 
-df1 = pd.read_csv('nuclear-energy-generation.csv')
-df_new = df1[df1['Entity'] == 'United States']
-print(df_new)
+Nuclear_Growth = pd.read_csv('nuclear-energy-generation.csv')
 
+US_Growth = Nuclear_Growth[Nuclear_Growth['Entity'] == 'United States']
+plt.plot(US_Growth['Year'], US_Growth['Nuclear Electicity'], label =' United States', color='r')
 
-NuclearElectricity_Growth = pd.read_csv('nuclear-energy-generation.csv')
+Fr_Growth = Nuclear_Growth[Nuclear_Growth['Entity'] == 'France']
+plt.plot(Fr_Growth['Year'], Fr_Growth['Nuclear Electicity'], label = 'France',  color='g')
 
-UnitedStates_Growth = NuclearElectricity_Growth[NuclearElectricity_Growth['Entity'] == 'United States']
-plt.plot(UnitedStates_Growth['Year'], UnitedStates_Growth['Electricity from nuclear (TWh)'], label = 'United States', color='r')
+Jap_Growth = Nuclear_Growth[Nuclear_Growth['Entity'] == 'Japan']
+plt.plot(Jap_Growth['Year'], Jap_Growth['Nuclear Electicity'], label = 'Japan', color='b')
 
-France_Growth = NuclearElectricity_Growth[NuclearElectricity_Growth['Entity'] == 'France']
-plt.plot(France_Growth['Year'], France_Growth['Electricity from nuclear (TWh)'], label = 'France',  color='g')
-
-Japan_Growth = NuclearElectricity_Growth[NuclearElectricity_Growth['Entity'] == 'Japan']
-plt.plot(Japan_Growth['Year'], Japan_Growth['Electricity from nuclear (TWh)'], label = 'Japan', color='b')
-
-World_Growth = NuclearElectricity_Growth[NuclearElectricity_Growth['Entity'] == 'World']
-plt.plot(World_Growth['Year'], World_Growth['Electricity from nuclear (TWh)'], label = 'World', color='m')
+World_Growth = Nuclear_Growth[Nuclear_Growth['Entity'] == 'World']
+plt.plot(World_Growth['Year'], World_Growth['Nuclear Electicity'], label = 'World', color='m')
 
 plt.legend()
 plt.title("PRODUCTION OF ELECTRICITY FROM NUCLEAR ENERGY")
@@ -54,3 +44,4 @@ plt.xlabel("Year")
 plt.ylabel("Electricity from nuclear energy (TWh)")
 plt.legend()
 plt.xlim(1970,2021)
+
