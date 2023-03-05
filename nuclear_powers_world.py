@@ -15,7 +15,7 @@ def reactor_power_region():
     """
     # Find out how many nuclear reactors there are in each region
     reactor_region = Reactor_df.groupby(['Region'], as_index = False).sum()
-    plt.figure(figsize = (12, 10))
+    plt.figure(figsize = (12, 9))
     #Draw pie chart to show the distribution of number reactors all over world
     plt.pie(reactor_region["NumReactor"], autopct = '%1.1f%%')
     plt.legend(reactor_region [ "Region" ], loc = 'upper left' )
@@ -88,9 +88,13 @@ def nuclear_electrity_growth():
 
 
 if __name__ == "__main__" :
+    #Two function use same dataset. so extract it in main function
     Reactor_df = pd.read_csv('nuclear_reactor.csv')
+    #calling function compute the region wise percentage of nuclear reactors
     reactor_power_region()
+    #calling function to compute country wise number of nuclear reactors.
     reactor_power_country()
+    #calling function to depicts the growth of nuclear electricity production
     nuclear_electrity_growth()
 
 
