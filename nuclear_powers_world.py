@@ -33,14 +33,17 @@ def reactor_power_country():
     #Find out how many nuclear reactors there are in each country
     reactor_country = Reactor_df.groupby(['Country'], as_index = False).sum()
     #Sort countries by number of nuclear reactors and extract top 10 countries
-    top_ten = reactor_country.sort_values(by = "NumReactor", ascending = False).head(10)
+    top_ten = reactor_country.sort_values(by = "NumReactor", ascending = \
+                                                                False).head(10)
     plt.figure()
-    plt.bar(top_ten["Country"], top_ten["NumReactor"], color = ['b', 'g', 'y', 'r'])
+    plt.bar(top_ten["Country"], top_ten["NumReactor"], color = ['b', 'g', 'y',\
+                                                                        'r'])
     plt.xticks(color = 'red', rotation = 'vertical')
     plt.yticks(color = 'red')
     #Add exact value as text on top of each bar
     for i in top_ten.itertuples():
-        plt.text(getattr(i, "Country"), getattr(i, "NumReactor"), getattr(i, "NumReactor"), ha = 'center')
+        plt.text(getattr(i, "Country"), getattr(i, "NumReactor"), getattr(i, \
+                                                "NumReactor"), ha = 'center')
     plt.title("TOP TEN COUNTRIES WITH MOST NUMBER OF NUCLEAR REACTORS")
     plt.show()
     plt.savefig("line.png", bbox_inches = "tight")
@@ -57,19 +60,23 @@ def nuclear_electrity_growth():
     #Extract all rows corresponding to world from whole data set
     world_growth = nuclear_growth[nuclear_growth['Entity'] == 'World']
     #Draw line chart showing the growth of worldwide nuclrar electricity
-    plt.plot(world_growth['Year'], world_growth['Nuclear Electicity'], label = 'World', color = 'm')
+    plt.plot(world_growth['Year'], world_growth['Nuclear Electicity'], label =\
+                                                         'World', color = 'm')
     #Extract all rows corresponding to the Country US from whole data set
     us_growth = nuclear_growth[nuclear_growth['Entity'] == 'United States']
     #Draw line chart showing the growth of nuclear elecrticity production in US
-    plt.plot(us_growth['Year'], us_growth['Nuclear Electicity'], label =' United States', color = 'r')
+    plt.plot(us_growth['Year'], us_growth['Nuclear Electicity'], label =\
+                                                 ' United States', color = 'r')
     #Extract all rows corresponding to the Country France from whole data set
     fr_growth = nuclear_growth[nuclear_growth['Entity'] == 'France']
     #Draw line chart showing the growth of nuclear elecrticity in France
-    plt.plot(fr_growth['Year'], fr_growth['Nuclear Electicity'], label = 'France',  color = 'g')
+    plt.plot(fr_growth['Year'], fr_growth['Nuclear Electicity'], label = \
+                                                        'France',  color = 'g')
     #Extract all rows corresponding to the Country Japan from whole data set
     jap_growth = nuclear_growth[nuclear_growth['Entity'] == 'Japan']
     #Draw line chart showing the growth of nuclear elecrticity in Japan
-    plt.plot(jap_growth['Year'], jap_growth['Nuclear Electicity'], label = 'Japan', color = 'b')
+    plt.plot(jap_growth['Year'], jap_growth['Nuclear Electicity'], label = \
+                                                         'Japan', color = 'b')
     plt.legend()
     plt.title("PRODUCTION OF ELECTRICITY FROM NUCLEAR ENERGY")
     plt.xlabel("Year")
